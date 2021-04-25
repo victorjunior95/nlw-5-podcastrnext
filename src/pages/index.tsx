@@ -40,6 +40,7 @@
 // SSG -> Static Site Generation
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
@@ -52,7 +53,6 @@ type Episode = {
   id: string;
   title: string;
   thumbnail: string;
-  description: string;
   members: string;
   duration: number;
   durationAsString: string;
@@ -86,7 +86,9 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   />
 
                   <div className={ styles.episodeDetails }>
-                    <a href="">{episode.title}</a>
+                    <Link href={`/episodes/${episode.id}`}>
+                      <a>{episode.title}</a>
+                    </Link>
                     <p>{episode.members}</p>
                     <span>{episode.publishedAt}</span>
                     <span>{episode.durationAsString}</span>
@@ -107,12 +109,14 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
         <table cellSpacing={0}>
           <thead>
-            <th></th>
-            <th>Podcast</th>
-            <th>Integrantes</th>
-            <th>Data</th>
-            <th>Duração</th>
-            <th></th>
+            <tr>
+              <th></th>
+              <th>Podcast</th>
+              <th>Integrantes</th>
+              <th>Data</th>
+              <th>Duração</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             {
@@ -127,6 +131,11 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                         src={ episode.thumbnail }
                         alt={ episode.title }
                       />
+                    </td>
+                    <td>
+                      <Link href={`/episodes/${episode.id}`}>
+                        <a>{episode.title}</a>
+                      </Link>
                     </td>
                     <td>{episode.members}</td>
                     <td style={{ width: 100 }}>{episode.publishedAt}</td>
@@ -165,7 +174,6 @@ export const getStaticProps: GetStaticProps = async () => {
       publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
-      description: episode.description,
       url: episode.file.url,
     };
   })
