@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -51,7 +51,7 @@ export function Player() {
   }
 
   function handleSeek(amount: number) {
-    audioRef.current.currentTime = 0;
+    audioRef.current.currentTime = amount;
     setProgress(amount);
   }
 
@@ -69,31 +69,30 @@ export function Player() {
     <div className={ styles.playerContainer }>
       <header>
         <img src="/playing.svg" alt="Tocando agora" />
-        <strong>Tocando agora</strong> {/*  {episode?.title} */}
+        <strong>Tocando agora</strong>
       </header>
 
       {
         episode ? (
-        <div className={ styles.currentEpisode }>
-          <Image
-            width={592}
-            height={592}
-            src={ episode.thumbnail }
-            objectFit="cover"
-          />
-          <strong>{episode.title}</strong>
-          <span>{episode.members}</span>
-        </div>
+          <div className={ styles.currentEpisode }>
+            <Image
+              width={592}
+              height={592}
+              src={ episode.thumbnail }
+              objectFit="cover"
+            />
+            <strong>{episode.title}</strong>
+            <span>{episode.members}</span>
+          </div>
         ) : (
-        <div className={ styles.emptyPlayer }>
-          <strong>Selecione um podcast para ouvir</strong>
-        </div>
+          <div className={ styles.emptyPlayer }>
+            <strong>Selecione um podcast para ouvir</strong>
+          </div>
         )
-        
       }
 
       <footer className={ !episode ? styles.empty : '' }>
-        <div className={styles.progress }>
+        <div className={ styles.progress }>
           <span>{convertDurationToTimeString(progress)}</span>
           <div className={ styles.slider }>
             {
@@ -104,7 +103,7 @@ export function Player() {
                   onChange={ handleSeek }
                   trackStyle={{ backgroundColor: '#04d361' }}
                   railStyle={{ backgroundColor: '#9f75ff' }}
-                  handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
+                  handleStyle={{ borderBlockColor: '#04d361', borderWidth: 4 }}
                 />
               ) : (
                 <div className={ styles.emptySlider } />
@@ -137,10 +136,10 @@ export function Player() {
             className={ isShuffling ? styles.isActive : '' }
             
           >
-            <img src="/shuffle.svg" alt="Embaralhar"/>
+            <img src="/shuffle.svg" alt="Embaralhar" />
           </button>
           <button type="button" onClick={ playPrevious } disabled={ !episode || !hasPrevious }>
-            <img src="/play-previous.svg" alt="Tocar anterior"/>
+            <img src="/play-previous.svg" alt="Tocar anterior" />
           </button>
           <button
             type="button"
@@ -150,12 +149,12 @@ export function Player() {
           >
             {
               isPlaying
-                ? <img src="/pause.svg" alt="Pausar"/>
-                : <img src="/play.svg" alt="Tocar"/>
+                ? (<img src="/pause.svg" alt="Pausar" />)
+                : (<img src="/play.svg" alt="Tocar" />)
             }
           </button>
           <button type="button" onClick={ playNext } disabled={ !episode || !hasNext }>
-            <img src="/play-next.svg" alt="Tocar próxima"/>
+            <img src="/play-next.svg" alt="Tocar próximo"/>
           </button>
           <button
             type="button"
