@@ -133,7 +133,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
               allEpisodes.map((episode, index) => {
                 return (
                   <tr key={episode.id}>
-                    <td style={{ width: 72 }}>
+                    <td style={ { width: 72 } }>
                       <Image
                         width={120}
                         height={120}
@@ -148,7 +148,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                       </Link>
                     </td>
                     <td>{episode.members}</td>
-                    <td style={{ width: 100 }}>{episode.publishedAt}</td>
+                    <td style={ { width: 100 } }>{episode.publishedAt}</td>
                     <td>{episode.durationAsString}</td>
                     <td>
                       <button
@@ -191,7 +191,7 @@ export const getStaticProps: GetStaticProps = async () => {
       durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
       url: episode.file.url,
     };
-  })
+  });
 
   const latestEpisodes = episodes.slice(0, 2);
   const allEpisodes = episodes.slice(2, episodes.length);

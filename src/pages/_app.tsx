@@ -9,10 +9,10 @@ import { PlayerContextProvider } from '../contexts/PlayerContext';
 function MyApp({ Component, pageProps }) {
   return (
     <PlayerContextProvider>
-      <div className={styles.wrapper}>
+      <div className={ styles.wrapper }>
         <main>
           <Header />
-          <Component {...pageProps} />
+          <Component { ...pageProps } />
         </main>
         <Player />
       </div>
